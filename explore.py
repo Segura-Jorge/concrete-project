@@ -190,3 +190,68 @@ def plot_all_histograms(df, individual_fig_size=(8, 4)):
         plt.xticks(rotation=30)  # Rotate x-axis labels by 30 degrees
         plt.grid(False)  # Hide the grid
         plt.show()  # Show each plot individually
+
+
+
+def plot_feature_bins(dataframe, feature, target, bins, bin_labels, figsize=(16, 8)):
+    """
+    Plots boxplot and barplot for a binned feature against a target variable.
+
+    :param dataframe: pandas DataFrame containing the data
+    :param feature: String name of the feature column to bin and plot
+    :param target: String name of the target variable
+    :param bins: Number of bins or a list of bin edges
+    :param bin_labels: List of labels for the bins
+    :param figsize: Tuple specifying the figure size
+    """
+    # Make a copy of the DataFrame for plotting to avoid changing the original
+    plot_df = dataframe.copy()
+
+    # Create bins for the feature
+    plot_df[f'{feature}_bins'] = pd.cut(plot_df[feature], bins=bins, labels=bin_labels)
+
+    # Set up a figure with two subplots side by side
+    plt.figure(figsize=figsize)
+
+    # Boxplot
+    plt.subplot(1, 2, 1)  # 1 row, 2 columns, first plot
+    sns.boxplot(x=f'{feature}_bins', y=target, data=plot_df)
+    plt.xlabel(f'Scaled {feature.capitalize()} Quantity')
+    plt.ylabel(f'{target.capitalize()} (psi)')
+    plt.title(f'{feature.capitalize()} vs. {target.capitalize()} Box Plot')
+
+    # Barplot
+    plt.subplot(1, 2, 2)  # 1 row, 2 columns, second plot
+    sns.barplot(x=f'{feature}_bins', y=target, data=plot_df)
+    plt.xlabel(f'Scaled {feature.capitalize()} Quantity')
+    plt.ylabel(f'{target.capitalize()} (psi)')
+    plt.title(f'{feature.capitalize()} vs. {target.capitalize()} Bar Plot')
+
+    # Display the plots
+    plt.tight_layout()  # Adjusts the plots to fit into the figure area.
+    plt.show()
+
+    
+def plot_performance(models, rmse_values, r_squared_values):
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+
+    # Bar plot for RMSE
+    ax1.set_xlabel('Ploynomial Regression Dataset', fontsize=14)
+    ax1.set_ylabel('RMSE', fontsize=14, color='tab:blue')
+    ax1.bar(models, rmse_values, color='skyblue', label='RMSE')
+    ax1.tick_params(axis='y', labelcolor='tab:blue')
+
+    # Instantiate a second axes that shares the same x-axis
+    ax2 = ax1.twinx()  
+    ax2.set_ylabel('R²', fontsize=14, color='tab:green')  
+    ax2.plot(models, r_squared_values, color='green', marker='o', label='R²')
+    ax2.tick_params(axis='y', labelcolor='tab:green')
+
+    # Legend
+    lines_1, labels_1 = ax1.get_legend_handles_labels()
+    lines_2, labels_2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines_1 + lines_2, labels_1 + labels_2, loc='best')
+
+    fig.tight_layout()  # to ensure the right y-label is not clipped
+    plt.title('Ploynomial Regression Model Performance Comparison', fontsize=16)
+    plt.show()
