@@ -77,7 +77,7 @@ This project focuses on predicting the compressive strength of concrete, which i
 
 
 ## Steps to Reproduce
-1. Download this notebook, wrgangle.py, and explore.py
+1. Download concrete_strength.ipynb, wrgangle.py, and explore.py files in this repository.
 2. Obtain the required .csv datased from 'https://www.kaggle.com/datasets/vinayakshanawad/cement-manufacturing-concrete-dataset'
 3. Run it
 
