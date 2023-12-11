@@ -236,7 +236,7 @@ def plot_performance(models, rmse_values, r_squared_values):
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
     # Bar plot for RMSE
-    ax1.set_xlabel('Ploynomial Regression Dataset', fontsize=14)
+    ax1.set_xlabel('Polynomial Regression Dataset', fontsize=14)
     ax1.set_ylabel('RMSE', fontsize=14, color='tab:blue')
     ax1.bar(models, rmse_values, color='skyblue', label='RMSE')
     ax1.tick_params(axis='y', labelcolor='tab:blue')
@@ -253,5 +253,5 @@ def plot_performance(models, rmse_values, r_squared_values):
     ax1.legend(lines_1 + lines_2, labels_1 + labels_2, loc='best')
 
     fig.tight_layout()  # to ensure the right y-label is not clipped
-    plt.title('Ploynomial Regression Model Performance Comparison', fontsize=16)
+    plt.title('Polynomial Regression Model Performance Comparison', fontsize=16)
     plt.show()
